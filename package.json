@@ -1,0 +1,22 @@
+{
+  "name": "hostels-proxy",
+  "version": "0.0.1",
+  "description": "small proxy server for hostels api",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sean-madhavan/hostels-proxy.git"
+  },
+  "author": "Sean Madhavan",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/sean-madhavan/hostels-proxy/issues"
+  },
+  "homepage": "https://github.com/sean-madhavan/hostels-proxy#readme",
+  "dependencies": {
+    "http-proxy": "^1.14.0"
+  }
+}
