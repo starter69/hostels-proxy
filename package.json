@@ -17,6 +17,8 @@
   },
   "homepage": "https://github.com/sean-madhavan/hostels-proxy#readme",
   "dependencies": {
+    "body-parser": "^1.15.2",
+    "connect": "^3.5.0",
     "http-proxy": "^1.14.0"
   }
 }

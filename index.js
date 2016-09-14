@@ -1,29 +1,27 @@
 var http = require('http');
 var httpProxy = require('http-proxy');
-var https = require('https');
+var connect = require('connect');
+var bodyParser = require('body-parser');
 
 //
 // Create a proxy server with custom application logic
 //
 var proxy = httpProxy.createProxyServer({});
 
-//
-// Create your custom server and just call `proxy.web()` to proxy
-// a web request to the target passed in the options
-// also you can use `proxy.ws()` to proxy a websockets request
-//
-var server = http.createServer(function(req, res) {
-  // You can define here your custom logic to handle the request
-  // and then proxy the request.
-  console.log(req.headers);
-  proxy.on('proxyReq', function(proxyReq, req, res, options) {
-    if(req.method=="POST" && req.body){
-        proxyReq.write(req.body);
-        proxyReq.end();
-    }
-  });
-  proxy.web(req, res, { target: 'https://www.hostelspoint.com' });
+//restream parsed body before proxying
+proxy.on('proxyReq', function(proxyReq, req, res, options) {
+  if(req.body) {
+    proxyReq.write(req.body);
+    proxyReq.end();
+  }
 });
 
-console.log("listening on port 5050")
-server.listen(5050);
+var app = connect()
+  .use(bodyParser.json())//json parser
+  .use(bodyParser.urlencoded())//urlencoded parser
+  .use(function(req, res){
+    console.log('proxy body:',req.body)
+    proxy.web(req, res, {
+      target: 'http://www.hostelspoint.com'
+    })
+  });
