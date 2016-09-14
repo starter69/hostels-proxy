@@ -25,3 +25,7 @@ var app = connect()
       target: 'http://www.hostelspoint.com'
     })
   });
+
+http.createServer(app).listen(5050, function(){
+  console.log('proxy linsten 5050');
+});
