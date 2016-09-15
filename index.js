@@ -6,7 +6,9 @@ var bodyParser = require('body-parser');
 //
 // Create a proxy server with custom application logic
 //
-var proxy = httpProxy.createProxyServer({});
+var proxy = httpProxy.createProxyServer({
+  changeOrigin: true
+});
 
 //restream parsed body before proxying
 proxy.on('proxyReq', function(proxyReq, req, res, options) {
@@ -24,7 +26,7 @@ var app = connect()
   .use(function(req, res){
     console.log('proxy body:', req.body)
     proxy.web(req, res, {
-      target: 'http://www.hostelspoint.com'
+      target: 'https://www.hostelspoint.com'
     })
   });
 
